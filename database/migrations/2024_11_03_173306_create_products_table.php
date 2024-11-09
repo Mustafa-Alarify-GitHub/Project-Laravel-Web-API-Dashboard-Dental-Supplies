@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
+            $table->string('modeType');
+            $table->text('description');
             $table->decimal('price_buy');
             $table->decimal('price_sales');
             $table->integer('counter');
