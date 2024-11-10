@@ -24,7 +24,7 @@ return new class extends Migration
             $table->double('LOC_Y')->nullable();
             $table->string('name_company')->nullable();
             $table->decimal('stock')->default(0);
-            $table->string('image');
+            $table->string('image')->default("https://as1.ftcdn.net/v2/jpg/01/26/91/78/1000_F_126917812_XlWgkaV9f81Hde4wvmvJWM3huJRvy5EM.jpg");
             $table->rememberToken();
             $table->timestamps();
         });
