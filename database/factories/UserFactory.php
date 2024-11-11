@@ -30,10 +30,7 @@ class UserFactory extends Factory
             'name_company' => $this->faker->company,
             'stock' => $this->faker->randomFloat(2, 0, 1000), 
             'image' => $this->faker->randomElement([
-                "https://t3.ftcdn.net/jpg/05/18/15/64/360_F_518156431_TdONavUmKrddaajQ4hLgc56xtDqkcciU.jpg",
-                "https://www.google.com/imgres?q=logo%20dental%20&imgurl=https%3A%2F%2Fmarketplace.canva.com%2FEAFzZ7HIqYo%2F1%2F0%2F1600w%2Fcanva-blue-and-white-minimal-dental-care-logo-D-_h-rJgSAk.jpg&imgrefurl=https%3A%2F%2Fwww.canva.com%2Flogos%2Ftemplates%2Fdental%2F&docid=azIard0lL0eC_M&tbnid=Sfu6gy0Jc8WstM&vet=12ahUKEwjT3aetktKJAxWZU6QEHS6RMqMQM3oECGgQAA..i&w=1600&h=1600&hcb=2&ved=2ahUKEwjT3aetktKJAxWZU6QEHS6RMqMQM3oECGgQAA",
-                "https://www.google.com/imgres?q=logo%20dental%20&imgurl=https%3A%2F%2Ft3.ftcdn.net%2Fjpg%2F05%2F18%2F15%2F64%2F360_F_518156431_TdONavUmKrddaajQ4hLgc56xtDqkcciU.jpg&imgrefurl=https%3A%2F%2Fstock.adobe.com%2Fsearch%3Fk%3D%2522dental%2Blogo%2522&docid=oXcnJB3Y5CF-qM&tbnid=jiMgFXXPrCx21M&vet=12ahUKEwjT3aetktKJAxWZU6QEHS6RMqMQM3oECBkQAA..i&w=630&h=360&hcb=2&ved=2ahUKEwjT3aetktKJAxWZU6QEHS6RMqMQM3oECBkQAA",
-                "https://www.google.com/imgres?q=logo%20dental%20&imgurl=https%3A%2F%2Fwww.shutterstock.com%2Fimage-vector%2Fcombination-letter-s-tooth-symbol-600nw-1495549139.jpg&imgrefurl=https%3A%2F%2Fwww.shutterstock.com%2Fsearch%2Fdental-alphabet-logo&docid=mBKdlkvkVVoaOM&tbnid=2bZhZ30bIYXlTM&vet=12ahUKEwjT3aetktKJAxWZU6QEHS6RMqMQM3oECGMQAA..i&w=600&h=600&hcb=2&ved=2ahUKEwjT3aetktKJAxWZU6QEHS6RMqMQM3oECGMQAA",
+                "https://t3.ftcdn.net/jpg/05/18/15/64/.jpg",
                 "https://marketplace.canva.com/EAFhS1Q0ABE/1/0/1600w/canva-red-mascot-free-dental-care-free-logo-Lci7vIcYbB4.jpg",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLRyfV_y2qEGmoX4Z__eLPvqOi5KZassx1hA&s",
                 "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/dental-logo-design-template-99823a0e7d826fa13480f95eac83f163_screen.jpg?ts=1624667153",

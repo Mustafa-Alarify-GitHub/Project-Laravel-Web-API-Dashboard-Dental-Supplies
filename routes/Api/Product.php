@@ -23,6 +23,7 @@ Route::get("/Get-User-product/{id}", function ($id) {
         "data" => $data,
     ]);
 });
+
 // Get All products 
 Route::get("/Get-All-product", function () {
     $data = Product::inRandomOrder()->get();

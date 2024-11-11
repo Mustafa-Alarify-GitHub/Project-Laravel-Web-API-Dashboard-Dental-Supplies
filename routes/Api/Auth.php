@@ -35,6 +35,7 @@ Route::post("/Login", function (Request $request) {
 
     // Check if user exists
     $user = User::where("email", $request->email)->first();
+
     if (!$user) {
         return response()->json([
             "status" => "404",
@@ -59,15 +60,15 @@ Route::post("/Login", function (Request $request) {
 
 // Register New User
 Route::post("/Register", function (Request $request) {
-  
-    // Validation
+
+    // // Validation
     $validator = Validator::make($request->all(), [
         "email" => "required|email|min:4|unique:users,email",
-        "password" => "required|string|min:4",
-        "clinic" => "required|string|min:4|max:15",
+        "password" => "required|min:8",
+        "clinic" => "required|string|min:4|max:35",
         "name" => "required|string",
         "phone" => "required",
-        "Location" => "required|string",
+        "Location" => "required",
     ], [
         "email.required" => "يرجى إدخال البريد الإلكتروني.",
         "email.email" => "يجب أن يكون البريد الإلكتروني صالحًا.",
@@ -88,39 +89,41 @@ Route::post("/Register", function (Request $request) {
         "Location.string" => "يجب أن يكون العنوان نصيًا.",
     ]);
 
-    // Check if validation fails
+    // // Check if validation fails
     if ($validator->fails()) {
         return response()->json([
             "status" => "400",
+            "message" => "هناك أخطاء في المدخلات",
             "errors" => $validator->errors()
-        ], 400);
+        ], );
     }
 
 
     // Check Email is Already existing
     $user = User::where("email", $request->email)->first();
+
     if ($user) {
         return response()->json([
             "status" => "400",
             "message" => "هذا البريد الإلكتروني مسجل مسبقاً.",
         ]);
     }
-  
+
     // Hash password
     $hashedPassword = Hash::make($request->password);
 
     // Create the user in the database
-        $newUser = User::create([
-            'email' =>" $request->email",
-            'password' => $hashedPassword,
-            'name_company' => $request->clinic,
-            'name' => $request->name,
-            'phone' => $request->phone,
-            'Location' => $request->Location,
-            'type' => "Clinic",
-        ]);
- 
-   
+    $newUser = User::create([
+        'email' => $request->email,
+        'password' => $hashedPassword,
+        'name_company' => $request->clinic,
+        'name' => $request->name,
+        'phone' => $request->phone,
+        'Location' => $request->Location,
+        'type' => "Clinic",
+    ]);
+
+
 
     return response()->json([
         "status" => "200",
@@ -128,4 +131,3 @@ Route::post("/Register", function (Request $request) {
         "data" => $newUser
     ]);
 });
-
