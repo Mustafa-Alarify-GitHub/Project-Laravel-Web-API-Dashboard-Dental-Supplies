@@ -35,7 +35,6 @@ class ProductFactory extends Factory
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS5MuqIysu0hL7rXmP7MSCUqUqBbcLPqsiX8g&s",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS6pqKzKWLdw3g2uXogyCH0TVMYINOqxnHRgw&s",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQTUUwsYLF2SuBaDGWNeZh_fXKS1P11HGrqUA&s",
-                "https://png.pngtree.com/png-clipart/20190116/ourmid/pngtree-medical-equipment-surgical-equipment-stainless-steel-surgical-equipment-hand-painted-surgical-png-image_400689.jpg",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqKQp5IOQxxrHEqHdiSmTlVEkTpFIzBWXAyX1lO4Dl-aS32iNYy-GG6HUPxwVRgg3r2es&usqp=CAU",
             ]),
             'modeType' => $this->faker->randomElement(['Type A', 'Type B', 'Type C']),

@@ -30,7 +30,6 @@ class UserFactory extends Factory
             'name_company' => $this->faker->company,
             'stock' => $this->faker->randomFloat(2, 0, 1000), 
             'image' => $this->faker->randomElement([
-                "https://t3.ftcdn.net/jpg/05/18/15/64/.jpg",
                 "https://marketplace.canva.com/EAFhS1Q0ABE/1/0/1600w/canva-red-mascot-free-dental-care-free-logo-Lci7vIcYbB4.jpg",
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLRyfV_y2qEGmoX4Z__eLPvqOi5KZassx1hA&s",
                 "https://d1csarkz8obe9u.cloudfront.net/posterpreviews/dental-logo-design-template-99823a0e7d826fa13480f95eac83f163_screen.jpg?ts=1624667153",
