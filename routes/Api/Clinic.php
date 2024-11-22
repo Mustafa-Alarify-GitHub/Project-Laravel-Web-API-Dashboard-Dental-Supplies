@@ -11,13 +11,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Get All Clinic
 Route::get("/Get-All-Clinic", function () {
-    $data = User::where('type', "Admin Provider")->inRandomOrder()->get();
+    $data = User::where('type', "Admin Provider")
+    ->where('active', "1")
+    ->inRandomOrder()->get();
     return response()->json([
         "status" => "200",
         "message" => "Success",
         "data" => $data,
     ]);
 });
-
-
-

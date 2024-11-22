@@ -21,7 +21,7 @@ Route::get("/Data-profile/{id}", function ($id) {
     ]);
 });
 
-// Update Data Profile
+// Update Data Profile name and phone
 Route::put("/Data-profile/{id}", function (Request $request, $id) {
 
     // Validation
@@ -62,10 +62,8 @@ Route::put("/Data-profile/{id}", function (Request $request, $id) {
     ]);
 });
 
-// Update Data Profile
+// Update Data Profile password
 Route::put("/Data-profile-password/{id}", function (Request $request, $id) {
-
-
 
     $user = User::where('id', $id)->first();
 

@@ -62,41 +62,40 @@ Route::post("/Login", function (Request $request) {
 Route::post("/Register", function (Request $request) {
 
     // // Validation
-    $validator = Validator::make($request->all(), [
-        "email" => "required|email|min:4|unique:users,email",
-        "password" => "required|min:8",
-        "clinic" => "required|string|min:4|max:35",
-        "name" => "required|string",
-        "phone" => "required",
-        "Location" => "required",
-    ], [
-        "email.required" => "يرجى إدخال البريد الإلكتروني.",
-        "email.email" => "يجب أن يكون البريد الإلكتروني صالحًا.",
-        "email.min" => "يجب أن يحتوي البريد الإلكتروني على 4 أحرف على الأقل.",
-        "email.unique" => "هذا البريد الإلكتروني مسجل بالفعل.",
-        "password.required" => "يرجى إدخال كلمة المرور.",
-        "password.string" => "يجب أن تكون كلمة المرور نصية.",
-        "password.min" => "يجب أن تكون كلمة المرور على الأقل 4 أحرف.",
-        "clinic.required" => "يرجى إدخال اسم العيادة.",
-        "clinic.string" => "يجب أن يكون اسم العيادة نصًا.",
-        "clinic.min" => "يجب أن يكون اسم العيادة على الأقل 4 أحرف.",
-        "clinic.max" => "يجب ألا يزيد اسم العيادة عن 15 حرفًا.",
-        "name.required" => "يرجى إدخال الاسم.",
-        "name.string" => "يجب أن يكون الاسم نصيًا.",
-        "phone.required" => "يرجى إدخال رقم الهاتف.",
-        "phone.string" => "يجب أن يكون رقم الهاتف نصيًا.",
-        "Location.required" => "يرجى إدخال العنوان.",
-        "Location.string" => "يجب أن يكون العنوان نصيًا.",
-    ]);
+    // $validator = Validator::make($request->all(), [
+    //     "email" => "required|email|min:4email",
+    //     "password" => "required|min:8",
+    //     "clinic" => "required|string|min:4|max:35",
+    //     "name" => "required|string",
+    //     "phone" => "required",
+    //     "Location" => "required",
+    // ], [
+    //     "email.required" => "يرجى إدخال البريد الإلكتروني.",
+    //     "email.email" => "يجب أن يكون البريد الإلكتروني صالحًا.",
+    //     "email.min" => "يجب أن يحتوي البريد الإلكتروني على 4 أحرف على الأقل.",
+    //     "password.required" => "يرجى إدخال كلمة المرور.",
+    //     "password.string" => "يجب أن تكون كلمة المرور نصية.",
+    //     "password.min" => "يجب أن تكون كلمة المرور على الأقل 4 أحرف.",
+    //     "clinic.required" => "يرجى إدخال اسم العيادة.",
+    //     "clinic.string" => "يجب أن يكون اسم العيادة نصًا.",
+    //     "clinic.min" => "يجب أن يكون اسم العيادة على الأقل 4 أحرف.",
+    //     "clinic.max" => "يجب ألا يزيد اسم العيادة عن 15 حرفًا.",
+    //     "name.required" => "يرجى إدخال الاسم.",
+    //     "name.string" => "يجب أن يكون الاسم نصيًا.",
+    //     "phone.required" => "يرجى إدخال رقم الهاتف.",
+    //     "phone.string" => "يجب أن يكون رقم الهاتف نصيًا.",
+    //     "Location.required" => "يرجى إدخال العنوان.",
+    //     "Location.string" => "يجب أن يكون العنوان نصيًا.",
+    // ]);
 
-    // // Check if validation fails
-    if ($validator->fails()) {
-        return response()->json([
-            "status" => "400",
-            "message" => "هناك أخطاء في المدخلات",
-            "errors" => $validator->errors()
-        ], );
-    }
+    // // // Check if validation fails
+    // if ($validator->fails()) {
+    //     return response()->json([
+    //         "status" => "400",
+    //         "message" => "هناك أخطاء في المدخلات",
+    //         "errors" => $validator->errors()
+    //     ], );
+    // }
 
 
     // Check Email is Already existing

@@ -14,7 +14,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 // Home Api
 Route::get("/Get-Data-Home", function () {
     $heroes = Hero::where('end_time', '>', Carbon::now())->get();
-    $data = User::where('type', "Admin Provider")->distinct()->inRandomOrder()->limit(4)->get();
+    $data = User::where('active', "1")
+    ->where('type', "Admin Provider")
+    ->distinct()->inRandomOrder()->limit(4)->get();
     return response()->json([
         "status" => "200",
         "message" => "",

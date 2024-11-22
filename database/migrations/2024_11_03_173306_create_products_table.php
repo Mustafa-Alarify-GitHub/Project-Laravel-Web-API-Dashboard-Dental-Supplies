@@ -20,7 +20,7 @@ return new class extends Migration
             $table->decimal('price_buy');
             $table->decimal('price_sales');
             $table->integer('counter');
-            $table->foreignId("Manger_Id")->constrained("users");
+            $table->foreignId("Manger_Id")->constrained("users")->cascadeOnDelete();
             $table->timestamps();
         });
     }
