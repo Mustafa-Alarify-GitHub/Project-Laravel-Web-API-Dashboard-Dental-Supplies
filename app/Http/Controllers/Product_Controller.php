@@ -12,8 +12,8 @@ class Product_Controller extends Controller
      */
     public function index()
     {
-        $data = Product::all();
-        return view("Dashboard.MasterAdmin.Product.Product",["data"=>$data]);
+        $data = Product::where("status","Active")->get();
+        return view("Dashboard.MasterAdmin.Product.Product", ["data" => $data]);
     }
 
     /**
@@ -37,32 +37,32 @@ class Product_Controller extends Controller
      */
     public function show(string $id)
     {
-        $data = Product::where("Manger_Id","=", $id)->get();
+        $data = Product::where("Manger_Id", "=", $id)->get();
 
-        return view("Dashboard/MasterAdmin/Product/Product",["data"=>$data]);
+        return view("Dashboard/MasterAdmin/Product/Product", ["data" => $data]);
+    }
+
+    public function GetRequestProduct()
+    {
+        $data = Product::where("status", "Wait")->get();
+
+        return view("Dashboard/MasterAdmin/Product/RequestProduct", ["data" => $data]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function updateRequestProduct(Request $request, $id)
     {
-        //
-    }
+        $product = Product::where("id", $id)->first();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+        if (!$product) {
+            session()->flash("error", "This user is not found!");
+            return to_route("Product");
+        }
+        // $product->update(["active" => "1"]);
+        session()->flash("error", "The Acceptable is Success");
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        return to_route("Product");
     }
 }

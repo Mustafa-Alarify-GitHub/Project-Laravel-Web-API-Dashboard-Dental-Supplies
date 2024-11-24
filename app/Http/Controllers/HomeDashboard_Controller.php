@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class HomeDashboard_Controller extends Controller
@@ -11,7 +13,22 @@ class HomeDashboard_Controller extends Controller
      */
     public function index()
     {
-        return view("Dashboard/Home");
+        $allProduct =Product::count();
+        $ActiveProduct =Product::where("status","Active")->count();
+        $unActiveProduct =Product::where("status","UnActive")->count();
+        $allClinic =User::where("type","Clinic")->count();
+        $allSupplier =User::where("type","Admin Provider")->count();
+        $Balance =User::where("id",Auth()->user()->id)->first();
+
+
+        return view("Dashboard/Home",[
+            "allProduct"=>$allProduct,
+            "allClinic"=>$allClinic,
+            "allSupplier"=>$allSupplier,
+            "Balance"=>$Balance->stock,
+            "ActiveProduct"=>$ActiveProduct,
+            "unActiveProduct"=>$unActiveProduct,
+        ]);
     }
 
     /**

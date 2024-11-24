@@ -38,6 +38,7 @@ class ProductFactory extends Factory
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqKQp5IOQxxrHEqHdiSmTlVEkTpFIzBWXAyX1lO4Dl-aS32iNYy-GG6HUPxwVRgg3r2es&usqp=CAU",
             ]),
             'modeType' => $this->faker->randomElement(['Type A', 'Type B', 'Type C']),
+            'status' => $this->faker->randomElement(['Active', 'UnActive', 'Wait']),
             'description' => $this->faker->paragraph,
             'price_buy' => $this->faker->randomFloat(2, 10, 100),
             'price_sales' => $this->faker->randomFloat(2, 20, 200),

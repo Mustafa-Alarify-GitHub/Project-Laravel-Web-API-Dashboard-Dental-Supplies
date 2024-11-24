@@ -28,6 +28,7 @@ class UserFactory extends Factory
             'LOC_X' => $this->faker->latitude,
             'LOC_Y' => $this->faker->longitude,
             'name_company' => $this->faker->company,
+            'active' => $this->faker->boolean,
             'stock' => $this->faker->randomFloat(2, 0, 1000), 
             'image' => $this->faker->randomElement([
                 "https://marketplace.canva.com/EAFhS1Q0ABE/1/0/1600w/canva-red-mascot-free-dental-care-free-logo-Lci7vIcYbB4.jpg",

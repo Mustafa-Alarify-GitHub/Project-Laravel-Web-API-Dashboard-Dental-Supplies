@@ -16,7 +16,7 @@ class CheckIfUserIsSupplier
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::user()->type == "Admin Provide") {
+        if (Auth()->user()->type == "Admin Provider") {
             return $next($request); 
         }
         return redirect('/');

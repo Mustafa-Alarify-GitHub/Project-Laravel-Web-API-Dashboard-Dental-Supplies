@@ -26,7 +26,7 @@ Route::get("/Get-User-product/{id}", function ($id) {
 
 // Get All products 
 Route::get("/Get-All-product", function () {
-    $data = Product::inRandomOrder()->get();
+    $data = Product::where("status", "Active")->inRandomOrder()->get();
     return response()->json([
         "status" => "200",
         "message" => "Success",

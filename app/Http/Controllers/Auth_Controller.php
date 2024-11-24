@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\emploes;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -24,8 +25,9 @@ class Auth_Controller extends Controller
 
         // Check Email is Already existing
         $user = User::where("email", $request->email)->first();
+        $userEmp = emploes::where("email", $request->email)->first();
 
-        if ($user) {
+        if ($user || $userEmp) {
             session()->flash("error", "هذا البريد الإلكتروني مسجل مسبقاً.");
             return to_route("Register");
         }
@@ -58,18 +60,32 @@ class Auth_Controller extends Controller
         $user = User::where("email", $request->email)
             ->where("type", "!=", "Clinic")
             ->first();
+        $userEmp = emploes::where("email", $request->email)->first();
 
-        if (!$user) {
+        // Not Found Email 
+        if (!$user && !$userEmp) {
             session()->flash("error", "هذا البريد الإلكتروني غير موجود");
             return to_route("login");
         }
+        // exists in Table User 
+        else if ($user) {
+            if (!Hash::check($request->password, $user->password)) {
+                session()->flash("error", "البريد الإلكتروني أو كلمة المرور غير صحيحة");
+                return to_route("login");
+            }
 
-        if (!Hash::check($request->password, $user->password)) {
-            session()->flash("error", "البريد الإلكتروني أو كلمة المرور غير صحيحة");
-            return to_route("login");
+            if ($user->active == true) {
+                Auth()->login($user);
+                return to_route("home");
+            }
         }
         
-        if ($user->active == true) {
+        // exists in Table Employ 
+        else if ($userEmp) {
+            if (!Hash::check($request->password, $userEmp->password)) {
+                session()->flash("error", "البريد الإلكتروني أو كلمة المرور غير صحيحة");
+                return to_route("login");
+            }
             Auth()->login($user);
             return to_route("home");
         }

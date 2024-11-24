@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth_Controller;
 use App\Http\Controllers\Balance_Controller;
+use App\Http\Controllers\Employ_Controller;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\HomeDashboard_Controller;
 use App\Http\Controllers\Product_Controller;
@@ -28,20 +29,28 @@ Route::middleware(['auth', 'MAdmin'])->group(function () {
     Route::post("Search", [Users_Controller::class, "Search"])->name("Search");
     Route::delete("Get-Supplier/{id}", [Users_Controller::class, "Delete"])->name("deleteUser");
 
-    // Request Join
+    // Request Join user
     Route::get("Get-Request-Join", [Users_Controller::class, "GetRequestJoin"])->name("join");
     Route::put("Get-Request-Join/{id}", [Users_Controller::class, "updateRequestJoin"])->name("update.join");
     Route::delete("Get-Request-Join/{id}", [Users_Controller::class, "deleteRequestJoin"])->name("delete.join");
 
-    // Product
+    // Request Add Product
+    Route::get("Get-Request-Product", [Product_Controller::class, "GetRequestProduct"])->name("Product");
+    Route::put("Get-Request-Product/{id}", [Product_Controller::class, "updateRequestProduct"])->name("update.Product");
+    Route::delete("Get-Request-Product/{id}", [Product_Controller::class, "deleteRequestProduct"])->name("delete.Product");
+
     Route::resource("product", Product_Controller::class);
     Route::resource("Balance", Balance_Controller::class);
     Route::resource("Hero", HeroController::class);
 });
 
 // Provide Admin
-Route::middleware(['auth', 'ProvideAdmin'])->group(function () {});
+Route::middleware(['auth', 'ProvideAdmin'])->group(function () {
+    Route::resource("Employ", Employ_Controller::class);
 
+});
+
+// Global Autonation
 Route::middleware('auth')->group(function () {
     Route::get("/", [HomeDashboard_Controller::class, "index"])->name("home");
 
