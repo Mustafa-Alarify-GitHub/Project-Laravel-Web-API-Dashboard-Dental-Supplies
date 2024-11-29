@@ -115,8 +115,8 @@
 
 
                     <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                    <a  class="btn btn-light" onclick="ShowHiddenDiv()">Cancel</a>
-                    </form>
+                </form>
+                <div  class="btn btn-light" onclick="ShowHiddenDiv()">Cancel</div>
                 </div>
             </div>
         </div>

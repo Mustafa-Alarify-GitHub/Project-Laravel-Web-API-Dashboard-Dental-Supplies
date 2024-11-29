@@ -50,7 +50,8 @@ class Users_Controller extends Controller
 
     public function GetRequestJoin()
     {
-        $data = User::where("active", "0")->get();
+        $data = User::where("active", "0")
+        ->where("type","=", "Admin Provider")->get();
 
         return view("Dashboard/MasterAdmin/Users/RequestJoin", ["data" => $data]);
     }
@@ -58,7 +59,7 @@ class Users_Controller extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function updateRequestJoin( $id)
+    public function updateRequestJoin($id)
     {
         $user = User::where("id", $id)->first();
 

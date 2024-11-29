@@ -1,7 +1,9 @@
 <?php
 
+use App\Models\bill;
 use App\Models\Cart;
 use App\Models\Product;
+use App\Models\Sales;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
@@ -40,12 +42,13 @@ Route::get("/Cart/{id}", function ($id) {
         WHERE
             users.id = $id");
 
-            
+
 
     return response()->json([
         "status" => "200",
         "message" => "Success",
-        "data" => $data
+        "data" => $data,
+        "balance" => $user->stock
     ]);
 });
 
@@ -154,5 +157,79 @@ Route::post("/Cart/{id}", function ($id, Request $request) {
     return response()->json([
         "status" => "200",
         "message" => "تم حذف العنصر من السلة بنجاح.",
+    ]);
+});
+
+// Check Out Cart
+Route::post("/Check-Out", function (Request $request) {
+    $user = User::where('id', $request->user_id)->first();
+
+    if (!$user) {
+        return response()->json([
+            "status" => "404",
+            "message" => "This User not Found!",
+        ]);
+    }
+
+    $data = DB::select("
+    SELECT
+        products.id as 'products_id',
+        products.Manger_Id,
+        products.price_buy,
+        carts.quantity
+    FROM
+        carts
+    INNER JOIN users ON carts.user_Id  = users.id
+    INNER JOIN products ON carts.product_Id  = products.id
+    WHERE
+        users.id = ?", [$request->user_id]);
+
+
+    $masterAdmin = User::where("type", "Master Admin")->first();
+
+    $bill = bill::create([
+        "Clinic_Id" => $request->user_id,
+    ]);
+
+    for ($i = 0; $i < count($data); $i++) {
+        // get Product
+        $product = Product::where("id", $data[$i]->products_id)->first();
+        // get Manger Product
+        $supple = User::where("id", $product->Manger_Id)->first();
+
+        // Decrement product 
+        $product->update(["counter" => ($product->counter - $data[$i]->quantity)]);
+
+        // Get total price * quantity and mines 10%
+        $totalPrice = ($data[$i]->price_buy * $data[$i]->quantity) * 0.9;
+
+        // add total price in Stock Manger Provider 
+        $supple->update(["stock" => ($supple->stock + $totalPrice)]);
+
+        // add 10% to Master Admin
+        $masterAdmin->update(["stock" => ($masterAdmin->stock + ($totalPrice * 0.1))]);
+
+        // Add to Table sells
+        Sales::create([
+            "product_Id" => $product->id,
+            "Manger_Id" => $product->Manger_Id,
+            "counter" => $data[$i]->quantity,
+            "total_price" => $totalPrice,
+            "Bill_Id" => $bill->id,
+            "Order" => $request->isOrder,
+            "StatusOrder" => "A",
+        ]);
+    }
+
+
+    // Decrement Stock Clinic User
+    $user->update(["stock" => ($user->stock - $request->total_Price)]);
+
+    // clear Cart 
+    Cart::where("user_Id", "=", $request->user_id)->delete();
+
+    return response()->json([
+        "status" => "200",
+        "message" => "Success",
     ]);
 });

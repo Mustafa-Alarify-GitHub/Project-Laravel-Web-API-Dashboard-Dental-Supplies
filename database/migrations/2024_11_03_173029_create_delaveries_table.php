@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('delaveries', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('email')->unique();
+            $table->string('password');
             $table->foreignId("Manger_Id")->constrained("users");
             $table->enum('status',["Online","OffLine","Busy"]);
             $table->timestamps();

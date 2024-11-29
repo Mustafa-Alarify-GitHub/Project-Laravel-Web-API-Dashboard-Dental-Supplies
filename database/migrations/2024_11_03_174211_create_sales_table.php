@@ -14,8 +14,12 @@ return new class extends Migration
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
             $table->foreignId("product_Id")->constrained("products");
+            $table->foreignId("Manger_Id")->constrained("users");
             $table->integer('counter');
-            $table->decimal('totle_price');
+            $table->decimal('total_price');
+            $table->boolean('Order')->default(false);
+            $table->enum('StatusOrder',["A","B","C"])->nullable();
+            $table->foreignId("deliver_id")->nullable()->constrained("delaveries");
             $table->foreignId("Bill_Id")->constrained("bills");
             $table->timestamps();
         });

@@ -1,14 +1,8 @@
 <?php
 
-use App\Models\book;
-use App\Models\Hero;
 use App\Models\Product;
-use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -16,7 +10,13 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 // Get All products by Id User
 Route::get("/Get-User-product/{id}", function ($id) {
-    $data = Product::where('Manger_Id', $id)->inRandomOrder()->limit(6)->get();
+    $data = Product::where('Manger_Id', $id)
+    ->inRandomOrder()
+    ->where("counter", ">", 0)
+    ->where("status", "Active")
+    ->limit(6)
+    ->get();
+
     return response()->json([
         "status" => "200",
         "message" => "Success",
@@ -26,7 +26,12 @@ Route::get("/Get-User-product/{id}", function ($id) {
 
 // Get All products 
 Route::get("/Get-All-product", function () {
-    $data = Product::where("status", "Active")->inRandomOrder()->get();
+    $data = Product::where("status", "Active")
+    ->where("counter", ">", 0)
+    ->where("status", "Active")
+    ->inRandomOrder()
+    ->get();
+    
     return response()->json([
         "status" => "200",
         "message" => "Success",

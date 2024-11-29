@@ -14,6 +14,26 @@
 @section('content')
     <div class="card-body">
         <h4 class="card-title">All Products Table</h4>
+        @if (session()->has('error'))
+        <div class="alert alert-danger" id="alert">
+            {{ session('error') }}
+        </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById("alert").style.display = "none";
+            }, [2000]);
+        </script>
+    @endif
+        @if (session()->has('success'))
+        <div class="alert alert-danger" id="alert">
+            {{ session('success') }}
+        </div>
+        <script>
+            setTimeout(() => {
+                document.getElementById("alert").style.display = "none";
+            }, [2000]);
+        </script>
+    @endif
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -22,7 +42,7 @@
                     <th> type </th>
                     <th> price Sell </th>
                     <th> price Buy </th>
-                    <th class="2"> Event </th>
+                    <th colspan="2"> Event </th>
                 </tr>
             </thead>
             <tbody>
@@ -36,14 +56,14 @@
                         <td>{{ $i->price_buy }}</td>
                         <td>{{ $i->price_sales }}</td>
                         <td>
-                            <form action="{{ route('update.join', [$i->id]) }}" method="post">
+                            <form action="{{ route('update.Product', [$i->id]) }}" method="post">
                                 @method('put')
                                 @csrf
                                 <button type="submit" class="btn btn-info btn-rounded ">Acceptable</button>
                             </form>
                         </td>
                         <td>
-                            <form action="{{ route('delete.join', [$i->id]) }}" method="post">
+                            <form action="{{ route('delete.Product', [$i->id]) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button type="submit" class="btn btn-danger btn-rounded ">UnAcceptable</button>

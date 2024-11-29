@@ -16,6 +16,7 @@ class MasterAdmin
      */
     public function handle(Request $request, Closure $next)
     {
+        
         if (Auth::user()->type == "Master Admin") {
             return $next($request); 
         }

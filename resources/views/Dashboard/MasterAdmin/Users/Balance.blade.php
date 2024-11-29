@@ -46,7 +46,7 @@
 
                         <input type="hidden" id="inputValue" name="clinic_id" value="{{ old('clinic_id') }}">
 
-                        <input type="text" class="InputSearch" name="clinic" value="{{ old('clinic') }}"
+                        <input type="text" autocomplete="off" class="InputSearch" name="clinic" value="{{ old('clinic') }}"
                             onkeyup ="OnChangeInput(event.target.value)" id="inputSearch" onfocus="OpendivData(true)"
                             onblur="OpendivData(false)">
 

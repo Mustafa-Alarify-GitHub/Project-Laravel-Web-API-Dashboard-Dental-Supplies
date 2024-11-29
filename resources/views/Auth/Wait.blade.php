@@ -1,5 +1,5 @@
 <div class="div-wait">
-<h3>تم استلام طلبك حاول تسجيل الدخول لاحقا</h3>
+    <h3>تم استلام طلبك حاول تسجيل الدخول لاحقا</h3>
 </div>
 <style>
     .div-wait {
@@ -10,3 +10,8 @@
         align-items: center
     }
 </style>
+<script>
+    setTimeout(() => {
+        window.location.href = "/";
+    }, [5000]);
+</script>

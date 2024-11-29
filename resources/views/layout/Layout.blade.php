@@ -53,7 +53,7 @@
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown"
                             aria-expanded="false">
                             <div class="nav-profile-img">
-                                <img src="{{ asset( Auth()->user()->image ) }}" alt="image">
+                                <img src="{{ asset(Auth()->user()->image) }}" alt="image">
                             </div>
                             <div class="nav-profile-text">
                                 <p class="mb-1 text-black">{{ Auth()->user()->name }}</p>
@@ -111,7 +111,16 @@
                     </li>
                     @endif
 
-                    
+                    @if (Auth()->user()->type == 'Admin Provider')
+                    <li class="nav-item dropdown">
+                        <a class="nav-link count-indicator dropdown-toggle" 
+                        href="{{ route('Product.Supplies.status') }}"
+                        >
+                        <i class="mdi mdi-email-outline"></i>
+                        <span class="count-symbol bg-danger"></span>
+                    </a>
+                </li>
+                @endif
                 </ul>
                 <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
                     data-toggle="offcanvas">
@@ -180,15 +189,55 @@
                         @endif
                     
                     @if (Auth()->user()->type == 'Admin Provider')
+                    <li class="nav-item nav-category">Products</li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ route('Employ.index') }}">
+                        <a class="nav-link" href="{{ route('Product.Supplies') }}">
                             <span class="icon-bg"><i class="mdi mdi-account-multiple-outline"></i></span>
-                            <span class="menu-title">Employs</span>
+                            <span class="menu-title">All Product</span>
                         </a>
                     </li> 
+                    <li class="nav-item nav-category">Purchases</li>
+                 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('Purchases') }}">
+                            <span class="icon-bg"><i class="mdi mdi-account-multiple-outline"></i></span>
+                            <span class="menu-title">Purchases</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item nav-category">Deliveries</li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('Delivery.index') }}">
+                            <span class="icon-bg"><i class="mdi mdi-account-multiple-outline"></i></span>
+                            <span class="menu-title">Delivery</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('product.Order') }}">
+                            <span class="icon-bg"><i class="mdi mdi-account-multiple-outline"></i></span>
+                            <span class="menu-title">Orders</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('Delivery.create') }}">
+                            <span class="icon-bg"><i class="mdi mdi-account-multiple-outline"></i></span>
+                            <span class="menu-title">Add New Delivery</span>
+                        </a>
+                    </li> 
+                    <li class="nav-item nav-category">Reports</li>
                   
-                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('delivery.index') }}">
+                            <span class="icon-bg"><i class="mdi mdi-account-multiple-outline"></i></span>
+                            <span class="menu-title">Delivery Report </span>
+                        </a>
+                    </li> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('Purchases.index') }}">
+                            <span class="icon-bg"><i class="mdi mdi-account-multiple-outline"></i></span>
+                            <span class="menu-title">Purchases Report </span>
+                        </a>
+                    </li> 
                     @else @endif
                     
                         <li class="nav-item

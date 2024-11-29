@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\Auth_Controller;
 use App\Http\Controllers\Balance_Controller;
-use App\Http\Controllers\Employ_Controller;
+use App\Http\Controllers\Delivery_Controller;
 use App\Http\Controllers\HeroController;
 use App\Http\Controllers\HomeDashboard_Controller;
 use App\Http\Controllers\Product_Controller;
 use App\Http\Controllers\Profile_Controller;
+use App\Http\Controllers\Report_Controller;
+use App\Http\Controllers\Sales_Controller;
 use App\Http\Controllers\Users_Controller;
 use Illuminate\Support\Facades\Route;
 
@@ -46,7 +48,44 @@ Route::middleware(['auth', 'MAdmin'])->group(function () {
 
 // Provide Admin
 Route::middleware(['auth', 'ProvideAdmin'])->group(function () {
-    Route::resource("Employ", Employ_Controller::class);
+    Route::get("Get-All-product-By-Supplies", 
+    [Product_Controller::class, "productBySupplies"])->name("Product.Supplies");
+   
+    Route::get("get-All-product-By-Supplies-status", 
+    [Product_Controller::class, "getAllProductByID"])->name("Product.Supplies.status");
+
+    Route::get("Add-All-product-By-Supplies", 
+    [Product_Controller::class, "addNewProduct"])->name("Product.Supplies.create");
+
+    Route::post("Add-product-By-Supplies", 
+    [Product_Controller::class, "storeNewProduct"])->name("Product.Supplies.Add");
+    Route::get("Update-product/{id}", 
+    [Product_Controller::class, "editProduct"])->name("Product.Supplies.edit");
+    Route::put("Update-product/{id}", 
+    [Product_Controller::class, "updateProduct"])->name("Product.Supplies.update");
+
+    Route::delete("Det-All-product-By-Supplies/{id}", 
+    [Product_Controller::class, "deleteProduct"])->name("Product.Supplies.delete");
+
+    // Purchases
+    Route::get("/Get-All-Purchases",[Sales_Controller::class,"getAllPurchases"])->name("Purchases");
+
+    // Deliveries
+    Route::resource('Delivery', Delivery_Controller::class);
+    Route::get("/get-product-Order",[Delivery_Controller::class,"getProductOrder"])->name("product.Order");
+    Route::put("/put-product-Order",[Delivery_Controller::class,"UpdateDeliveryStatus"])->name("product.Order.status");
+
+    // Report Delivery
+    Route::get("/REPO-Delivery",[Report_Controller::class,"deliveryReportAll"])->name("delivery.index");
+    Route::post("/REPO-Delivery",[Report_Controller::class,"deliveryReportByOneDelivery"])->name("delivery.show");
+
+    // Report Purchases
+    Route::get("/REPO-Purchases",[Report_Controller::class,"PurchasesReportAll"])->name("Purchases.index");
+    Route::post("/REPO-Purchases",[Report_Controller::class,"PurchasesReportByTime"])->name("Purchases.show");
+
+    // print PDF
+    Route::post("/PDF-Purchases",[Report_Controller::class,"PDFPurchases"])->name("Purchases.PDF");
+    Route::post("/PDF-Delivery",[Report_Controller::class,"PDFDelivery"])->name("Delivery.PDF");
 
 });
 

@@ -14,10 +14,6 @@ return new class extends Migration
         Schema::create('bills', function (Blueprint $table) {
             $table->id();
             $table->foreignId("Clinic_Id")->constrained("users")->nullable();
-            $table->string('Location');
-            $table->boolean('Order');
-            $table->foreignId("Delvery_Id")->constrained("delaveries")->nullable();
-            $table->boolean('isSale')->nullable();
             $table->timestamps();
         });
     }

@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Delavery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
@@ -128,5 +129,54 @@ Route::post("/Register", function (Request $request) {
         "status" => "200",
         "message" => "تم التسجيل بنجاح",
         "data" => $newUser
+    ]);
+});
+
+// Login Delivery
+Route::post("/LoginDelivery", function (Request $request) {
+    // Validation
+    $validator = Validator::make($request->all(), [
+        "email" => "required|email|min:4",
+        "password" => "required|string|min:4",
+    ], [
+        "email.required" => "يرجى إدخال البريد الإلكتروني.",
+        "email.email" => "يجب أن يكون البريد الإلكتروني صالحًا.",
+        "email.min" => "يجب أن يحتوي البريد الإلكتروني على 4 أحرف على الأقل.",
+        "password.required" => "يرجى إدخال كلمة المرور.",
+        "password.string" => "يجب أن تكون كلمة المرور نصية.",
+        "password.min" => "يجب أن تكون كلمة المرور على الأقل 4 أحرف.",
+    ]);
+
+    // Check if validation fails
+    if ($validator->fails()) {
+        return response()->json([
+            "status" => "400",
+            "message" => "هناك أخطاء في المدخلات",
+            "errors" => $validator->errors()
+        ], 400);
+    }
+
+    // Check if user exists
+    $user = Delavery::where("email", $request->email)->first();
+
+    if (!$user) {
+        return response()->json([
+            "status" => "404",
+            "message" => "هذا البريد الإلكتروني غير موجود",
+        ]);
+    }
+
+    // Check if the password is correct
+    if (!Hash::check($request->password, $user->password)) {
+        return response()->json([
+            "status" => "400",
+            "message" => "البريد الإلكتروني أو كلمة المرور غير صحيحة",
+        ]);
+    }
+
+    return response()->json([
+        "status" => "200",
+        "message" => "تم تسجيل الدخول بنجاح",
+        "data" => $user
     ]);
 });
