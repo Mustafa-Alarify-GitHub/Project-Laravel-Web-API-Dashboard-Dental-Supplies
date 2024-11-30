@@ -171,6 +171,8 @@ Route::post("/Check-Out", function (Request $request) {
         ]);
     }
 
+    // fathe
+
     $data = DB::select("
     SELECT
         products.id as 'products_id',
