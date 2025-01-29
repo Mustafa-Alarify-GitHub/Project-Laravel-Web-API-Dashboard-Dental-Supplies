@@ -12,8 +12,7 @@ use App\Http\Controllers\Sales_Controller;
 use App\Http\Controllers\Users_Controller;
 use Illuminate\Support\Facades\Route;
 
-
-// Guest
+// Guest User
 Route::middleware('guest')->group(function () {
     Route::view("/Wait", "Auth/Wait")->name("wait");
     Route::view("/Login", "Auth/login")->name("login");
@@ -48,23 +47,23 @@ Route::middleware(['auth', 'MAdmin'])->group(function () {
 
 // Provide Admin
 Route::middleware(['auth', 'ProvideAdmin'])->group(function () {
-    Route::get("Get-All-product-By-Supplies", 
+    Route::get("Get-All-product-By-Supplies",
     [Product_Controller::class, "productBySupplies"])->name("Product.Supplies");
-   
-    Route::get("get-All-product-By-Supplies-status", 
+
+    Route::get("get-All-product-By-Supplies-status",
     [Product_Controller::class, "getAllProductByID"])->name("Product.Supplies.status");
 
-    Route::get("Add-All-product-By-Supplies", 
+    Route::get("Add-All-product-By-Supplies",
     [Product_Controller::class, "addNewProduct"])->name("Product.Supplies.create");
 
-    Route::post("Add-product-By-Supplies", 
+    Route::post("Add-product-By-Supplies",
     [Product_Controller::class, "storeNewProduct"])->name("Product.Supplies.Add");
-    Route::get("Update-product/{id}", 
+    Route::get("Update-product/{id}",
     [Product_Controller::class, "editProduct"])->name("Product.Supplies.edit");
-    Route::put("Update-product/{id}", 
+    Route::put("Update-product/{id}",
     [Product_Controller::class, "updateProduct"])->name("Product.Supplies.update");
 
-    Route::delete("Det-All-product-By-Supplies/{id}", 
+    Route::delete("Det-All-product-By-Supplies/{id}",
     [Product_Controller::class, "deleteProduct"])->name("Product.Supplies.delete");
 
     // Purchases
